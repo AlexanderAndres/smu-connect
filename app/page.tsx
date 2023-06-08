@@ -2,12 +2,6 @@
 import { signIn, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react'
-import Input from './components/inputs/input';
-import {
-  FieldValues,
-  SubmitHandler,
-  useForm
-} from "react-hook-form";
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -15,25 +9,11 @@ const Login = () => {
 
   const { data: session, status } = useSession()
 
-  const {
-    register,
-    handleSubmit,
-    formState: {
-      errors,
-    },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: ''
-    },
-  });
-
-  // const handleSubmit = async (event: any) => {
-  //   event.preventDefault()
-  //   const result = await signIn('credentials', { redirect: false, email, password, })
-  //   console.log("[RESULT:]", result)
-  // }
+  const handleSubmit = async (event: any) => {
+    event.preventDefault()
+    const result = await signIn('credentials', { redirect: false, email, password, })
+    console.log("[RESULT:]", result)
+  }
 
 
   useEffect(() => {
@@ -44,7 +24,7 @@ const Login = () => {
   return (
     <div className="bg-gray-900 text-gray-100 h-screen w-screen flex justify-center items-center">
       <form
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
         className=''>
         <div>
           <label htmlFor="email">Email</label>
@@ -66,13 +46,6 @@ const Login = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <Input
-          id="password"
-          label="Password"
-          type="password"
-          errors={errors}
-          required
-        />
         <button type="submit">Sign in</button>
       </form>
     </div>

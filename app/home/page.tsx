@@ -9,7 +9,7 @@ const Home = () => {
 
     useEffect(() => {
         console.log("[Status]:", status)
-        if (session) redirect('/home')
+        // if (session) redirect('/home')
     }, [session, status])
 
     return (
