@@ -27,7 +27,9 @@ const Login = () => {
         onSubmit={handleSubmit}
         className=''>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"
+          className=''
+          >Email</label>
           <input
             type="email"
             id="email"
