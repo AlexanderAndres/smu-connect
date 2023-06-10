@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import prisma from ""
+import prisma from "@prisma/client"
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
       },
       authorize(credentials, req): any {
         // Perform database operations
-        /*if (
+        if (
           credentials?.email === "admin@luks.dev" &&
           credentials?.password === "admin"
         ) {
@@ -24,12 +24,17 @@ export const authOptions: NextAuthOptions = {
             userName: "admin",
             email: "admin@luks.dev",
           };
-        }*/
-        if (
+        }
+
+        /*if (
           !credentials?.email || !credentials?.password) {
           throw new Error('Invalid credentials');
         }
-        const user = await 
+        const user = await prisma.user.findUnique ({
+          where: {
+            email: credentials.email
+          }
+        });*/
         return null;
       },
     }),
