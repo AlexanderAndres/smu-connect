@@ -1,0 +1,301 @@
+generator client {
+  provider      = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model alert {
+  id             Int      @id @default(autoincrement())
+  date           DateTime @db.DateTime(0)
+  description    String   @db.VarChar(550)
+  estado         Boolean
+  estadoLocal_id Int
+  pic1           String?  @db.VarChar(250)
+  pic2           String?  @db.VarChar(250)
+  type_id        Int
+  ceco           Int
+}
+
+model alertType {
+  id   Int    @id @default(autoincrement())
+  type String @db.VarChar(45)
+}
+
+model arquitectura {
+  id                Int    @id @default(autoincrement())
+  salaVentas        String @db.VarChar(100)
+  interior          String @db.VarChar(250)
+  exterior          String @db.VarChar(250)
+  m2Bodega          String @db.VarChar(100)
+  bodega            String @db.VarChar(250)
+  m2Recepcion       String @db.VarChar(100)
+  recepcion         String @db.VarChar(250)
+  m2Estacionamiento String @db.VarChar(100)
+  estacionamiento   String @db.VarChar(250)
+  plano             String @db.VarChar(250)
+  ceco              Int
+}
+
+model caidaDetalle {
+  id             Int     @id @default(autoincrement())
+  personal       Int
+  consiente      Int
+  altura         Int
+  fractura       Int
+  autorizado     Int
+  avisoUrgencias Boolean
+  alert_id       Int
+}
+
+model climatizacion {
+  id              Int    @id @default(autoincrement())
+  sistema         String @db.VarChar(250)
+  equipamiento    String @db.VarChar(100)
+  estadoOperativo String @db.VarChar(100)
+  m2Sala          String @db.VarChar(50)
+  ceco            Int
+}
+
+model correos {
+  id      Int    @id @default(autoincrement())
+  correos String @db.VarChar(450)
+  ceco    Int
+}
+
+model corteAguaDetalle {
+  id              Int     @id @default(autoincrement())
+  llamadoCompania Boolean
+  programado      Int
+  incidenteAgua   Int
+  alert_id        Int
+}
+
+model corteElecPrinDetalle {
+  id              Int     @id @default(autoincrement())
+  llamadoCompania Boolean
+  programado      Int
+  estadoGenerador Int
+  respaldaFrio    Int
+  cortoCircuito   Int
+  alert_id        Int
+}
+
+model cortinaMetalica {
+  id              Int    @id @default(autoincrement())
+  cortina         String @db.VarChar(250)
+  cantidad        String @db.VarChar(50)
+  estadoOperativo String @db.VarChar(50)
+  ceco            Int
+}
+
+model cubierta {
+  id   Int    @id @default(autoincrement())
+  tipo String @db.VarChar(50)
+  pic  String @db.VarChar(250)
+  ceco Int
+}
+
+model estadoLocal {
+  id   Int    @id @default(autoincrement())
+  type String @db.VarChar(35)
+}
+
+model filtracionAguaDetalle {
+  id              Int     @id @default(autoincrement())
+  llamadoCompania Boolean
+  sucesoAgua      Int
+  lugar_id        Int
+  alert_id        Int
+}
+
+model frioAlimentario {
+  id                    Int     @id @default(autoincrement())
+  central               String? @db.VarChar(250)
+  cantidadCentral       String? @db.VarChar(50)
+  capacidadCentral      String? @db.VarChar(50)
+  suministroCentral     String? @db.VarChar(90)
+  pic1                  String  @db.VarChar(250)
+  unidadesCondensadoras Boolean
+  cantidadUniConden     String? @db.VarChar(50)
+  capacidadUniConden    String? @db.VarChar(50)
+  suministroUniConden   String? @db.VarChar(50)
+  pic2                  String? @db.VarChar(250)
+  ceco                  Int
+}
+
+model frioDetalle {
+  id               Int @id @default(autoincrement())
+  lugar            Int
+  rangoTemperatura Int
+  alert_id         Int
+}
+
+model fugaDetalle {
+  id            Int     @id @default(autoincrement())
+  avisoBomberos Boolean
+  sucesoGas     Int
+  lugarAfectado Int
+  alert_id      Int
+}
+
+model generacionElectrica {
+  id           Int     @id @default(autoincrement())
+  fichaTecnica String  @db.VarChar(250)
+  generador    String  @db.VarChar(250)
+  cubreFrio    Boolean
+  ceco         Int
+}
+
+model generadorFallaDetalle {
+  id           Int @id @default(autoincrement())
+  incidenteGen Int
+  alert_id     Int
+}
+
+model id3 {
+  id          Int    @id @default(autoincrement())
+  descripcion String @db.VarChar(30)
+}
+
+model iluminacion {
+  id   Int    @id @default(autoincrement())
+  tipo String @db.VarChar(50)
+  pic  String @db.VarChar(250)
+  ceco Int
+}
+
+model imagen {
+  id   Int     @id @default(autoincrement())
+  name String  @db.VarChar(20)
+  url  String  @db.VarChar(500)
+  url2 String? @db.VarChar(250)
+}
+
+model incendio {
+  id                     Int    @id @default(autoincrement())
+  rociadores             String @db.VarChar(250)
+  gabinetes              Int
+  tiempoAutonomia        String @db.VarChar(50)
+  estanque               String @db.VarChar(250)
+  capacidadEstanque      String @db.VarChar(30)
+  cantidadTipoExtintores String @db.VarChar(250)
+  planoExtintores        String @db.VarChar(250)
+  ceco                   Int
+}
+
+model incendioDetalle {
+  id            Int     @id @default(autoincrement())
+  olorQuemado   Boolean
+  llamaLatente  Boolean
+  alarmaHumo    Boolean
+  avisoBomberos Boolean
+  lugar_id      Int
+  alert_id      Int
+}
+
+model lluviaDetalle {
+  id       Int @id @default(autoincrement())
+  lugar_id Int
+  alert_id Int
+}
+
+model local {
+  ceco              Int     @id
+  name              String  @db.VarChar(35)
+  region            String  @db.VarChar(25)
+  city              String  @db.VarChar(25)
+  address           String  @db.VarChar(40)
+  latitude          Float   @db.Float
+  longitude         Float   @db.Float
+  localType         String  @db.VarChar(20)
+  alert             Boolean
+  jefeSuper_rut     String  @db.VarChar(9)
+  supervisor_rut    String  @db.VarChar(9)
+  administrador_rut String  @db.VarChar(9)
+  localPic          String  @db.VarChar(250)
+}
+
+model lugar {
+  id    Int    @id @default(autoincrement())
+  lugar String @db.VarChar(25)
+}
+
+model mantenimiento {
+  Id                       Int     @id @default(autoincrement())
+  Ceco                     Int
+  Estado                   String  @db.VarChar(30)
+  Especialidad             String  @db.VarChar(50)
+  Q_de_equipos             String? @db.VarChar(20)
+  Periodicidad_establecida String  @db.VarChar(20)
+  Periodicidad_real        String? @db.VarChar(20)
+  Nombre_Empresa           String? @db.VarChar(50)
+  Costo                    Int
+  EN                       Int?
+  FEB                      Int?
+  MAR                      Int?
+  ABR                      Int?
+  MAY                      Int?
+  JUN                      Int?
+  JUL                      Int?
+  AGOS                     Int?
+  SEPT                     Int?
+  OCT                      Int?
+  NOV                      Int?
+  DIC                      Int?
+}
+
+model refrigerante {
+  id           Int    @id @default(autoincrement())
+  usoAnual     String @db.VarChar(50)
+  nombre       String @db.VarChar(50)
+  refrigerante String @db.VarChar(250)
+  ceco         Int
+}
+
+model role {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+}
+
+model sistemaElectrico {
+  id              Int     @id @default(autoincrement())
+  transformadores String? @db.VarChar(50)
+  nTableros       String  @db.VarChar(50)
+  ceco            Int
+}
+
+model user {
+  id            Int    @id @default(autoincrement())
+  rut           String @db.VarChar(9)
+  firstName     String @db.VarChar(25)
+  secondName    String @db.VarChar(25)
+  surname       String @db.VarChar(25)
+  secondSurname String @db.VarChar(25)
+  password      String @db.VarChar(60)
+  email         String @db.VarChar(200)
+  cellPhone     Int
+  rol_id        Int
+}
+
+model vandalismoDetalle {
+  id                 Int     @id @default(autoincrement())
+  robo               Boolean
+  detenidos          Boolean
+  daniosLocal        Boolean
+  daniosPersonal     Boolean
+  llamadaCarabineros Boolean
+  lugarVandalismo    Int
+  alert_id           Int
+}
+
+model whatsapp {
+  id      Int    @id @default(autoincrement())
+  numbers String @db.VarChar(150)
+  ceco    Int
+}
+
