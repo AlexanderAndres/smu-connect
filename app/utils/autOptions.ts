@@ -4,6 +4,9 @@ import Credentials from "next-auth/providers/credentials";
 import prisma from "./prismadb"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { NextResponse } from 'next/server';
+
+
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -18,6 +21,7 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        
         // Perform database operations
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Invalid credentials');
@@ -26,7 +30,10 @@ export const authOptions: AuthOptions = {
           where: {
             email: credentials.email
           }
+          
         });
+        console.log("credenciales:", credentials )
+        console.log("user", user)
         if (!user || !user?.password) {
           throw new Error('Invalid Credentials');
         }
@@ -38,10 +45,14 @@ export const authOptions: AuthOptions = {
         if (!isCorrectPassword) {
           throw new Error('Invalid Credentials');
         }*/
-        if (user.email !== credentials.email && user.password !== credentials.password){
+        if (user.email !== credentials.email || user.password !== credentials.password){
           throw new Error('Invalid Credentials');
+          //return NextResponse.json({error: 'Credenciales Invalidas'}, {status: 403})
+          //return null;
+          
+          
         }
-
+        
         return user as any;
       }
     })
