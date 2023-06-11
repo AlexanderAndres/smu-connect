@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({
             />
             <label
                 htmlFor={id}
-                className="absolute text-gray-950 text-md duration-150 transform -translate-y-3 -translate-x-[237px] top-8 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                className="absolute text-gray-500 text-md duration-150 transform -translate-y-3 -translate-x-[195px] top-8 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
                 {label}
             </label>
